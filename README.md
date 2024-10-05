@@ -3,118 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Content Loading</title>
+    <title>Combined Page</title>
     <style>
         body {
             display: flex;
+            flex-direction: column;
             margin: 0;
             font-family: Arial, sans-serif;
-            height: 100vh;
-            background-color: #eaeaea;
         }
-        .sidebar {
-            width: 250px;
-            background-color: #4a90e2;
-            color: white;
-            padding: 10px; /* Reduced padding */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column; /* Stack items vertically */
-            justify-content: flex-start; /* Align links to the top */
-        }
-        .link {
-            display: block;
-            margin: 5px 0; /* Reduced margin */
-            text-decoration: none;
-            color: white;
-            padding: 10px; /* Adjusted padding */
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .link:hover {
-            background-color: #357ab8;
-            transform: scale(1.05);
-        }
-        .content {
-            flex-grow: 1;
-            padding: 30px;
-            background-color: white;
-            overflow: auto;
-            transition: background-color 0.3s;
-        }
-        .content h1, .content h2 {
-            color: #333;
-        }
-        img {
-            display: block;
-            margin: 20px auto;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .loader {
+        header {
+           height: 55px;
+            background-color: #343a40; /* Dark header background */
+            color: white; /* White text */
+            padding: 10px;
             text-align: center;
         }
-        .loader::after {
-            content: '';
-            border: 5px solid #ccc;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
+        main {
+            display: flex;
+            flex-grow: 1;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        #sidebar {
+            width: 200px;
+            background-color: teal; /* Sidebar background color */
+            color: white; /* Text color */
+            padding: 10px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        #sidebar h3 {
+            margin-top: 0;
+        }
+        #content {
+            flex-grow: 1;
+            padding: 10px;
+            background-color: #f8f9fa; /* Content background color */
+        }
+        a {
+            display: block;
+            margin: 5px 0;
+            text-decoration: none;
+            color: white; /* Link color */
+            transition: background-color 0.3s;
+            padding: 8px;
+            border-radius: 4px; /* Rounded corners */
+        }
+        a:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        footer {
+            height: 40px;
+            background-color: #343a40; /* Dark footer background */
+            color: white; /* White text */
+            text-align: center;
+            padding: 10px;
+        }
+        iframe {
+            width: 100%;
+            height: calc(100vh - 200px); /* Full height minus header and footer */
+            border: none;
         }
     </style>
-    <script>
-        function loadContent(page) {
-            const contentArea = document.getElementById('content-area');
-            contentArea.innerHTML = '<div class="loader"></div>'; // Show loading animation
-            fetch(page)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.text();
-                })
-                .then(data => {
-                    contentArea.innerHTML = data;
-                })
-                .catch(error => {
-                    contentArea.innerHTML = '<p>Error loading content. Please try again later.</p>';
-                    console.error('Error fetching the page:', error);
-                });
-        }
-    </script>
 </head>
 <body>
 
-    <nav class="sidebar" role="navigation">
-        <h2>Navigation</h2>
-        <a href="#" class="link" onclick="loadContent('index.html'); return false;">Link 1</a>
-        <a href="#" class="link" onclick="loadContent('page2.html'); return false;">Link 2</a>
-    </nav>
+<header>
+    <h1>Welcome to the Combined Page</h1>
+</header>
 
-    <main class="content" id="content-area">
-        <h1>Welcome!</h1>
-        <p>This is the main content area. Click the links to load different content.</p>
-        
-        <h2>About This Site</h2>
-        <p>This site demonstrates how to dynamically load content using JavaScript and the Fetch API. You can navigate through different sections without refreshing the page!</p>
-        
-        <h2>Features</h2>
-        <ul>
-            <li>Dynamic Content Loading</li>
-            <li>Simple Navigation</li>
-            <li>Responsive Design</li>
-        </ul>
-        
-        <h2>Get Started</h2>
-        <p>Click on the links in the sidebar to explore more.</p>
-        
-        <img src="https://via.placeholder.com/400" alt="Placeholder Image">
-    </main>
+<main>
+    <div id="sidebar">
+        <h3>Links</h3>
+        <a href="#" onclick="loadPage('page1.html'); return false;">Page 1</a>
+        <a href="#" onclick="loadPage('page2.html'); return false;">Page 2</a>
+    </div>
+
+    <div id="content">
+        <iframe id="iframe" src="main-content.html"></iframe>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+</footer>
+
+<script>
+    function loadPage(page) {
+        document.getElementById('iframe').src = page;
+    }
+
+    // Load main content by default when the page loads
+    window.onload = function() {
+        loadPage('main-content.html'); // Replace 'main-content.html' with the path to your default content
+    };
+</script>
 
 </body>
 </html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Content</title>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <p>This is the main content area. Click the links to load different content.</p>
+    
+    <h2>About This Site</h2>
+    <p>This site demonstrates how to dynamically load content using JavaScript and the Fetch API. You can navigate through different sections without refreshing the page!</p>
+    
+    <h2>Features</h2>
+    <ul>
+        <li>Dynamic Content Loading</li>
+        <li>Simple Navigation</li>
+        <li>Responsive Design</li>
+    </ul>
+    
+    <h2>Get Started</h2>
+    <p>Click on the links in the sidebar to explore more.</p>
+</body>
+</html>
+
