@@ -1,3 +1,7 @@
+import com.sun.jna.Native;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef.HWND;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -6,29 +10,36 @@ import java.awt.event.KeyEvent;
 public class PowerBuilderAutomation {
     public static void main(String[] args) {
         try {
-            // Launch the PowerBuilder application
-            Runtime.getRuntime().exec("path/to/YourPowerBuilderApp.exe");
+            // Find the window handle for the running PowerBuilder application
+            String windowTitle = "Your PowerBuilder Application Title"; // Replace with the actual window title
+            HWND hwnd = User32.INSTANCE.FindWindow(null, windowTitle);
 
-            // Wait for the application to open
-            Thread.sleep(5000);
+            if (hwnd != null) {
+                // Bring the window to the foreground
+                User32.INSTANCE.SetForegroundWindow(hwnd);
+                Thread.sleep(1000); // Wait for the window to focus
 
-            // Create a Robot instance
-            Robot robot = new Robot();
+                // Create a Robot instance
+                Robot robot = new Robot();
 
-            // Example: Move mouse to specific coordinates and click
-            robot.mouseMove(300, 400); // Replace with actual coordinates of the button
-            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                // Example: Simulate mouse click at specific coordinates
+                robot.mouseMove(300, 400); // Replace with actual coordinates
+                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 
-            // Example: Simulate keyboard input
-            robot.keyPress(KeyEvent.VK_TAB); // Navigate through fields
-            robot.keyRelease(KeyEvent.VK_TAB);
-            robot.keyPress(KeyEvent.VK_ENTER); // Submit
-            robot.keyRelease(KeyEvent.VK_ENTER);
+                // Example: Simulate keyboard input
+                robot.keyPress(KeyEvent.VK_TAB);
+                robot.keyRelease(KeyEvent.VK_TAB);
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
 
-            // Add more interactions as needed
+                // Add more interactions as needed
 
-        } catch (AWTException | InterruptedException | IOException e) {
+            } else {
+                System.out.println("PowerBuilder application is not running.");
+            }
+
+        } catch (AWTException | InterruptedException e) {
             e.printStackTrace();
         }
     }
