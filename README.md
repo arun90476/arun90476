@@ -1,8 +1,7 @@
- // Keywords to search for
+private static void processFile(String inputFilePath) {
+        // Keywords to search for
         String[] keywords = {"Funded", "Not Funded", "Processed"};
-        String targetText = "11380490"; // The text to search for in the remaining content
         List<String> lines;
-        int position = -1;  // Position of the first match (line number of targetText)
 
         try {
             // Step 1: Read all lines from the file
@@ -31,39 +30,16 @@
                 }
             }
 
-            System.out.println(resultLines.size());
-            // Step 4: Now search for the line containing targetText ("11380192")
-            for (int i = 0; i<resultLines.size(); i++) {
-                if (resultLines.get(i).contains(targetText)) {
-                    position = i+1; 
-                    break;
-                }
-            }
-
-            // Step 5: Join the result lines into a single string
+            // Step 4: Join the result lines into a single string
             String updatedText = String.join("\n", resultLines);
 
-            // Step 6: Write the updated content back to the file
+            // Step 5: Write the updated content back to the file
             Files.write(Paths.get(inputFilePath), updatedText.getBytes());
 
-            // Step 7: Return the position (line number where "11380192" is found)
-            return position;
+            System.out.println("Unwanted lines removed successfully.");
 
         } catch (IOException e) {
             e.printStackTrace();
-            return -1;  // Return -1 in case of error
-        }
-    }
-
-    public static void main(String[] args) {
-        String filePath = "C:\\Users\\Arun prasad\\OneDrive\\Pictures\\demo.txt";  // Replace with your actual file path
-
-        // Call the processFile function to remove lines before the first keyword match and find "11380192"
-        int position = processFile(filePath);
-
-        if (position != -1) {
-            System.out.println("The position of the line containing '11380192' in the modified text is: " + position);
-        } else {
-            System.out.println("Error processing the file or target text not found.");
+            System.out.println("Error processing the file.");
         }
     }
