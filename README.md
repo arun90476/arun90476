@@ -1,26 +1,4 @@
-private static String processText(String text) {
-        // Keywords to search for in the extracted text
-        String[] keywords = {"Funded", "Not Funded", "Processed"};
-
-        String[] lines = text.split("\n");  // Split the text into lines
-        StringBuilder filteredText = new StringBuilder();
-        boolean foundKeyword = false;
-
-        // Iterate through the lines and start adding lines once a keyword is found
-        for (String line : lines) {
-            if (!foundKeyword) {
-                for (String keyword : keywords) {
-                    if (line.contains(keyword)) {
-                        foundKeyword = true;
-                        break;
-                    }
-                }
-            }
-
-            if (foundKeyword) {
-                filteredText.append(line).append("\n");  // Add the line if after a keyword match
-            }
-        }
-
-        return filteredText.toString().trim();  // Return the processed text
-    }
+    Send("{Alt down}{Tab}")  ; Hold Alt and press Tab (first time)
+    Sleep(100)               ; Short delay to let Alt+Tab register
+    Send("{Tab}")            ; Press Tab again while holding Alt
+    Send("{Alt up}")         ; Release Alt key after both Tab presses
