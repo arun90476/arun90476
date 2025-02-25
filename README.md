@@ -1,34 +1,3 @@
-package com.javaetmoi.jetty;
-
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import org.json.*;
-
-
-
-@WebServlet("/HelloWorldServlet")
-public class HelloWorldServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        BufferedReader reader = request.getReader();
-        StringBuilder jsonInput = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            jsonInput.append(line);
-        }
-        
-        // Simulate saving to the database (You should parse and store this data properly)
-        System.out.println("Received Report Data: " + jsonInput.toString());
-
-        response.getWriter().write("Report saved successfully!");
-    }
-}
-
-
-
------------------------------------------------------
-
 <!DOCTYPE html>
 <html>
 <head>
