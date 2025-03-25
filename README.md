@@ -294,3 +294,58 @@
 </script>
 </body>
 </html>
+
+
+
+package test;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import org.json.JSONObject;
+
+@WebServlet("/dsrReport")
+public class LoadDSRServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    // Simulating stored report (since no database is used yet)
+    private static JSONObject storedReport = null;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if (storedReport != null) {
+            out.print(storedReport.toString()); // Send saved report data
+        } else {
+            out.print("{}"); // Return empty JSON if no report exists
+        }
+        out.flush();
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+
+        // Read JSON request data
+        StringBuilder jsonBuffer = new StringBuilder();
+        String line;
+        BufferedReader reader = request.getReader();
+        while ((line = reader.readLine()) != null) {
+            jsonBuffer.append(line);
+        }
+
+        try {
+            JSONObject receivedData = new JSONObject(jsonBuffer.toString());
+            storedReport = receivedData; // Save report data
+            out.print("{\"success\": \"Report saved successfully\"}");
+        } catch (Exception e) {
+            out.print("{\"error\": \"Invalid JSON format\"}");
+        }
+        out.flush();
+    }
+}
+
