@@ -177,7 +177,6 @@
 
     function saveReport() {
         let reportData = {};
-        let selectedDSR = document.getElementById("dsrSelect").value;
         document.querySelectorAll("td[contenteditable='true']").forEach(cell => {
             let key = cell.getAttribute("data-id");
             if (key) {
@@ -186,10 +185,23 @@
             cell.setAttribute("contenteditable", "false");
             cell.style.backgroundColor = "";
         });
-        localStorage.setItem(selectedDSR, JSON.stringify(reportData));
-        localStorage.setItem("selectedDSR", selectedDSR);
-        alert("Report saved successfully!");
-        document.getElementById("saveButton").style.display = "none";
+
+        // Send report data to backend via AJAX
+        fetch("/webProject/dsrReport", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(reportData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Report saved successfully!");
+                document.getElementById("saveButton").style.display = "none";
+            } else {
+                alert("Error saving report: " + data.error);
+            }
+        })
+        .catch(error => console.error("Error:", error));
     }
 
     function loadDSRs() {
@@ -267,11 +279,15 @@
     }
 
     function loadReport() {
-        let selectedDSR = document.getElementById("dsrSelect").value;
-        let reportData = JSON.parse(localStorage.getItem(selectedDSR)) || {};
-        document.querySelectorAll("td[data-id]").forEach(cell => {
-            cell.innerText = reportData[cell.getAttribute("data-id")] || "";
-        });
+        // Fetch report from backend
+        fetch("/webProject/dsrReport")
+        .then(response => response.json())
+        .then(data => {
+            document.querySelectorAll("td[data-id]").forEach(cell => {
+                cell.innerText = data[cell.getAttribute("data-id")] || "";
+            });
+        })
+        .catch(error => console.error("Error:", error));
     }
 
     window.onload = loadDSRs;
