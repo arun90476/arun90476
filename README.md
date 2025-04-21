@@ -1,41 +1,31 @@
-Infra Requirements
-Space Required: Approx. 150–200 MB
-
-Java Version: Java SE 1.8
-
-Server: Any server supporting Jetty/Java Servlet (Tomcat, Jetty, etc.)
-
-Port Used: 8090 (can be configured)
-
-2. Setup Steps
-Install Java JDK 1.8+.
-
-Place the utility package (attached or shared separately) on the server.
-
-Navigate to the project root.
-
-Use the following command to run:
-
-bash
-Copy code
-java -jar target/jetty-webapp-1.0.0-SNAPSHOT-jar-with-dependencies.jar
-The application will run on:
-
-cpp
-Copy code
-http://<host>:8090
-3. Utility Package
-The utility package contains:
-
-Backend Files: Java source code (.java files, pom.xml)
-
-Frontend Files: HTML files under src/main/resources/webapp
-
-Config: global.properties, logback.xml
-
-Instructions: README with setup and execution guide
-
-Let me know if any additional details are needed.
-
-Best regards,
-[Your Name]
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>mywebapp</groupId>
+  <artifactId>mywebapp</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+    <dependencies>
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.3</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>
