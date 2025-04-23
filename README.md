@@ -1,5 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-                             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+
+    <servlet>
+        <servlet-name>DateServlet</servlet-name>
+        <servlet-class>com.javae.mol.jetry.DateServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>TragActionStatus</servlet-name>
+        <servlet-class>com.javae.mol.jetry.TragActionStatus</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DateServlet</servlet-name>
+        <url-pattern>/DateServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>TragActionStatus</servlet-name>
+        <url-pattern>/TragActionStatus</url-pattern>
+    </servlet-mapping>
+
+</web-app>
