@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
-         version="5.0">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-    <servlet>
-        <servlet-name>DateServlet</servlet-name>
-        <servlet-class>com.javae.mol.jetry.DateServlet</servlet-class>
-    </servlet>
+    <groupId>com.example</groupId>
+    <artifactId>myapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-    <servlet>
-        <servlet-name>TragActionStatus</servlet-name>
-        <servlet-class>com.javae.mol.jetry.TragActionStatus</servlet-class>
-    </servlet>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
 
-    <servlet-mapping>
-        <servlet-name>DateServlet</servlet-name>
-        <url-pattern>/DateServlet</url-pattern>
-    </servlet-mapping>
+    
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>9.1.0</version>
+            <scope>provided</scope>  <!-- Important for Tomcat -->
+        </dependency>
+    </dependencies>
 
-    <servlet-mapping>
-        <servlet-name>TragActionStatus</servlet-name>
-        <url-pattern>/TragActionStatus</url-pattern>
-    </servlet-mapping>
-
-</web-app>
+    <build>
+        <finalName>myapp</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
