@@ -1,26 +1,20 @@
-<properties>
-    <jetty.version>12.0.5</jetty.version>
-</properties>
+import org.eclipse.jetty.ee10.webapp.WebAppContext;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 
-<dependencies>
-    <!-- Core Jetty EE10 -->
-    <dependency>
-        <groupId>org.eclipse.jetty.ee10</groupId>
-        <artifactId>jetty-ee10</artifactId>
-        <version>${jetty.version}</version>
-    </dependency>
-    
-    <!-- Servlet Support -->
-    <dependency>
-        <groupId>org.eclipse.jetty.ee10</groupId>
-        <artifactId>jetty-ee10-servlet</artifactId>
-        <version>${jetty.version}</version>
-    </dependency>
-    
-    <!-- WebApp Support -->
-    <dependency>
-        <groupId>org.eclipse.jetty.ee10</groupId>
-        <artifactId>jetty-ee10-webapp</artifactId>
-        <version>${jetty.version}</version>
-    </dependency>
-</dependencies>
+public class JakartaCompatibilityTest {
+    public static void main(String[] args) throws Exception {
+        Server server = new Server(8080);
+        
+        // Initialize with Resource (recommended)
+        WebAppContext webapp = new WebAppContext();
+        webapp.setContextPath("/");
+        webapp.setBaseResource(ResourceFactory.root()
+            .newResource("./src/main/webapp"));
+        
+        server.setHandler(webapp);
+        server.start();
+        System.out.println("Server started: http://localhost:8080");
+        server.join();
+    }
+}
