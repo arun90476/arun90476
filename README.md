@@ -1,19 +1,22 @@
-// ✅ Proper way to access WEB-INF in Tomcat
-try (InputStream input = getServletContext()
-        .getResourceAsStream("/WEB-INF/global.properties")) {
-    
-    if (input == null) {
-        System.err.println("ERROR: File not found at: " + 
-            getServletContext().getRealPath("/WEB-INF/global.properties"));
-        return;
-    }
-    
-    Properties props = new Properties();
-    props.load(input);
-    String value = props.getProperty("your.key");
-    System.out.println("Value: " + value);
+import org.eclipse.jetty.ee10.webapp.WebAppContext;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.util.resource.ResourceFactory;
 
-} catch (IOException e) {
-    System.err.println("Failed to load properties: " + e.getMessage());
-    e.printStackTrace();
+public class JakartaCompatibilityTest {
+    public static void main(String[] args) throws Exception {
+        Server server = new Server(8080);
+        
+        // Configure your webapp
+        WebAppContext webapp = new WebAppContext();
+        webapp.setContextPath("/");
+        webapp.setBaseResource(ResourceFactory.of(webapp).newResource("./src/main/webapp"));
+        webapp.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*\\.jar|.*/classes/.*");
+        
+        server.setHandler(webapp);
+        server.start();
+        
+        System.out.println("Server started at http://localhost:8080");
+        System.out.println("Press Ctrl+C to stop");
+        server.join();
+    }
 }
