@@ -1,49 +1,30 @@
-1. What are the types of waits in Selenium?
+What are the main types of HTTP requests used in API testing?
 Answer:
 
-Implicit Wait: Waits globally for a defined time.
+GET: Retrieve data
 
-Explicit Wait: Waits for a specific condition.
+POST: Create new data
 
-Fluent Wait: Like explicit wait but checks repeatedly with polling.
+PUT: Update existing data
 
-2.What are locators in Selenium?
+PATCH: Partially update data
+
+DELETE: Remove data
+
+🔸 Q4: How do you validate API response status codes?
 Answer:
-Locators help identify elements on a web page. Types include:
+By checking the status code returned by the API:
 
-id
+200: OK (success)
 
-name
+201: Created
 
-className
+204: No Content (used with DELETE)
 
-tagName
+400: Bad Request
 
-linkText / partialLinkText
+401: Unauthorized
 
-xpath
+404: Not Found
 
-cssSelector
-
-
-3. Explain what Selenium is and its different components.
-A: Selenium is an open-source tool for automating web applications. Its components are:
-
-Selenium IDE – Record/playback tool.
-
-Selenium WebDriver – Executes browser actions.
-
-Selenium Grid – Runs tests in parallel.
-
-Selenium RC – Deprecated.
-
-4.What are the limitations of Selenium?
-
-
-Cannot automate desktop apps
-
-No built-in reporting
-
-Limited support for captcha, 2FA
-
-Needs third-party tools for video/screenshots
+500: Internal Server Erro
