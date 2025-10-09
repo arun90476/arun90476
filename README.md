@@ -1,30 +1,20 @@
-What are the main types of HTTP requests used in API testing?
-Answer:
+1. ACH Payments (Automated Clearing House)
 
-GET: Retrieve data
+Definition:
+ACH stands for Automated Clearing House, a U.S.-based electronic network that moves money between bank accounts.
+It’s used for direct deposits, bill payments, and business-to-business (B2B) transfers.
 
-POST: Create new data
+Example:
 
-PUT: Update existing data
+Your salary getting deposited automatically every month.
 
-PATCH: Partially update data
+Paying your electric bill online through your bank account
 
-DELETE: Remove data
+2. Check Payments
 
-🔸 Q4: How do you validate API response status codes?
-Answer:
-By checking the status code returned by the API:
+Definition:
+A check (or cheque) is a paper-based payment instrument where the payer instructs the bank to pay a certain amount to the payee.
 
-200: OK (success)
+Example:
 
-201: Created
-
-204: No Content (used with DELETE)
-
-400: Bad Request
-
-401: Unauthorized
-
-404: Not Found
-
-500: Internal Server Erro
+You write a check for ₹25,000 to pay your landlord or vendor.
