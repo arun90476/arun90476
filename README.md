@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dropdown Enable Example</title>
-</head>
-<body>
+ byte[] output = content.toString().getBytes("UTF-8");
 
-    <!-- First dropdown -->
-    <label>Select Option:</label>
-    <select id="first" onchange="toggleSecond()">
-        <option value="">-- Select --</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-    </select>
+        // Force download
+        resp.setContentType("application/octet-stream");
+        resp.setHeader("Content-Disposition", "attachment; filename=ModifiedFile.txt");
+        resp.setContentLength(output.length);
 
-    <br><br>
-
-    <!-- Second dropdown (disabled initially) -->
-    <label>Second Dropdown:</label>
-    <select id="second" disabled>
-        <option value="">-- Choose --</option>
-        <option value="opt1">Option 1</option>
-        <option value="opt2">Option 2</option>
-    </select>
-
-<script>
-function toggleSecond() {
-    let first = document.getElementById("first").value;
-    let second = document.getElementById("second");
-
-    if (first === "yes") {
-        second.disabled = false;
-    } else {
-        second.disabled = true;
-        second.value = ""; // reset value
-    }
-}
-</script>
-
-</body>
-</html>
+        resp.getOutputStream().write(output);
