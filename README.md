@@ -1,1 +1,1 @@
-git branch -r | wc -l
+git branch -r | find /c /v ""
