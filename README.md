@@ -1,4 +1,1 @@
-git config --global http.sslBackend schannel
-
-
-git config --global http.sslVerify true
+git branch -r | wc -l
